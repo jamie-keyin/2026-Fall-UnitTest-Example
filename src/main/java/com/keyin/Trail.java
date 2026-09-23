@@ -8,6 +8,13 @@ public class Trail {
     private String startLocation;
     private String endLocation;
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+
+        return ((Trail)obj).getName().equals(this.getName());
+    }
+
     public Long getId() {
         return id;
     }

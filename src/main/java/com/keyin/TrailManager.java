@@ -15,7 +15,11 @@ public class TrailManager {
     }
 
     public void addTrail(Trail trail) {
-        getTrails().add(trail);
+        if (trails == null) return;
+
+        if (!getTrails().contains(trail)) {
+            getTrails().add(trail);
+        }
     }
 
 }

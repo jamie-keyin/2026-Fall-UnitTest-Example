@@ -35,5 +35,18 @@ public class TrailManagerTest {
 
         // business rules are that no trails can have the same name.
         Assertions.assertEquals(1, trailManagerUnderTest.getTrails().size());
+
+        Trail trail3 = new Trail();
+        trail3.setId(3L);
+        trail3.setName("test3");
+        trail3.setLength(5);
+        trail3.setLoop(true);
+        trail3.setEndLocation("5678-0000");
+        trail3.setStartLocation("1234-1111");
+
+        trailManagerUnderTest.addTrail(trail3);
+
+        // trail3 has a different name so we expect it to be added
+        Assertions.assertEquals(2, trailManagerUnderTest.getTrails().size());
     }
 }
