@@ -47,6 +47,6 @@ public class TrailManagerTest {
         trailManagerUnderTest.addTrail(trail3);
 
         // trail3 has a different name so we expect it to be added
-        Assertions.assertEquals(1, trailManagerUnderTest.getTrails().size());
+        Assertions.assertEquals(2, trailManagerUnderTest.getTrails().size());
     }
 }
