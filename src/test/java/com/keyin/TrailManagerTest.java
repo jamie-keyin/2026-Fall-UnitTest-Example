@@ -1,5 +1,7 @@
 package com.keyin;
 
+import com.keyin.trail.Trail;
+import com.keyin.trail.TrailManager;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
