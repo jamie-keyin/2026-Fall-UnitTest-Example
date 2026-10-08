@@ -1,12 +1,26 @@
 package com.keyin;
 
+import com.keyin.client.RemoteAPIClient;
+import com.keyin.trail.Trail;
+import com.keyin.trail.TrailManager;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatchers;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.internal.matchers.Any;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.io.IOException;
+
+@ExtendWith(MockitoExtension.class)
 public class TrailManagerTest {
+    @Mock
+    private RemoteAPIClient remoteAPIClientMock;
 
     @Test
-    public void testAddTrail() {
+    public void testAddTrail() throws IOException, InterruptedException {
         Trail trail = new Trail();
         trail.setId(1L);
         trail.setName("test");
@@ -16,6 +30,9 @@ public class TrailManagerTest {
         trail.setStartLocation("1234");
 
         TrailManager trailManagerUnderTest = new TrailManager();
+        trailManagerUnderTest.setRemoteAPIClient(remoteAPIClientMock);
+
+        Mockito.when(remoteAPIClientMock.createTrail(ArgumentMatchers.any(Trail.class))).thenReturn(new Trail());
 
         Assertions.assertEquals(0, trailManagerUnderTest.getTrails().size());
 

@@ -1,4 +1,4 @@
-package com.keyin;
+package com.keyin.trail;
 
 public class Trail {
     private Long id;
