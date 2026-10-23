@@ -62,4 +62,8 @@ public class Trail {
     public void setEndLocation(String endLocation) {
         this.endLocation = endLocation;
     }
+
+    public String toString() {
+        return "ID: " + id + " - " + name;
+    }
 }

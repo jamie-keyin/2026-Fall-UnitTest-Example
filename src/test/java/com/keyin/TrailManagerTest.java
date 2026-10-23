@@ -66,4 +66,53 @@ public class TrailManagerTest {
         // trail3 has a different name so we expect it to be added
         Assertions.assertEquals(2, trailManagerUnderTest.getTrails().size());
     }
+
+    @Test
+    public void testAddTrailWithRemoteAPI() throws IOException, InterruptedException {
+        RemoteAPIClient remoteAPIClient = new RemoteAPIClient("http://localhost:8080");
+
+        TrailManager trailManagerUnderTest = new TrailManager();
+        trailManagerUnderTest.setRemoteAPIClient(remoteAPIClient);
+
+        int trailListInitialSize = trailManagerUnderTest.getTrails().size();
+
+        Assertions.assertEquals(trailListInitialSize, trailManagerUnderTest.getTrails().size());
+
+        String testDuplicateTrailAddName = "test-remote-api" + trailListInitialSize;
+
+        Trail trail = new Trail();
+        trail.setName(testDuplicateTrailAddName);
+        trail.setLength(5);
+        trail.setLoop(false);
+        trail.setEndLocation("5678");
+        trail.setStartLocation("1234");
+
+        trailManagerUnderTest.addTrail(trail);
+
+        Assertions.assertEquals(trailListInitialSize + 1, trailManagerUnderTest.getTrails().size());
+
+        Trail trail2 = new Trail();
+        trail2.setName(testDuplicateTrailAddName);
+        trail2.setLength(10);
+        trail2.setLoop(false);
+        trail2.setEndLocation("5678-0987");
+        trail2.setStartLocation("1234-4321");
+
+        trailManagerUnderTest.addTrail(trail2);
+
+        // business rules are that no trails can have the same name.
+        Assertions.assertEquals(trailListInitialSize + 1, trailManagerUnderTest.getTrails().size());
+
+        Trail trail3 = new Trail();
+        trail3.setName("test-remote-api-" + trailListInitialSize + 10);
+        trail3.setLength(5);
+        trail3.setLoop(true);
+        trail3.setEndLocation("5678-0000");
+        trail3.setStartLocation("1234-1111");
+
+        trailManagerUnderTest.addTrail(trail3);
+
+        // trail3 has a different name so we expect it to be added
+        Assertions.assertEquals(trailListInitialSize + 2, trailManagerUnderTest.getTrails().size());
+    }
 }

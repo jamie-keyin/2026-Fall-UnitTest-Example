@@ -15,6 +15,19 @@ public class TrailManager {
             trails = new ArrayList<>();
         }
 
+        try {
+            List<Trail> remoteTrails = remoteAPIClient.getTrails();
+
+            if (remoteTrails != null) {
+                trails.clear();
+                trails.addAll(remoteTrails);
+            }
+        } catch (IOException e) {
+            System.out.println("Error getting remote trails from API: " + e.getMessage() );
+        } catch (InterruptedException e) {
+            System.out.println("Error getting remote trails from API: " + e.getMessage() );
+        }
+
         return trails;
     }
 
